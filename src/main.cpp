@@ -110,37 +110,20 @@ int main()
 
                 else if (Event.type == sf::Event::MouseWheelMoved)
                 {
-                    std::cout << "wheel movement: " << Event.mouseWheel.delta << std::endl;
                     tools_iterator=Event.mouseWheel.delta;
-                    std::cout << "tools_iterator: " << tools_iterator << std::endl;
                     if(tools_iterator>0)
                     {
-
-                                if(my_tool==2)
-                         {
-                             my_tool=0;
-                         }
-                         else
-                         {
-                           my_tool++;
-                         }
+                        if(my_tool==2) my_tool=0;
+                        else my_tool++;
                     }
                     else if(tools_iterator<0)
                     {
-                        cout<<"Hey!"<<endl;
-
-                         if(my_tool==0)
-                         {
-                             my_tool=2;
-                         }
-                         else
-                         {
-                           my_tool--;
-                         }
+                         if(my_tool==0) my_tool=2;
+                         else my_tool--;
                     }
                     else cout<<"Go home MouseWheel... You're drunk."<<endl;
 
-                    cout<<"my_tool : "<<my_tool<<endl;
+                    cout<<"My tool : "<<my_tool<<endl;
                 }
 
 
@@ -226,7 +209,8 @@ int main()
             engine.DrawTexts();
             engine.DrawRectanglesArray();
             engine.DrawRectangleTool();
-
+            engine.DrawCirclesArray();
+            engine.DrawCircleTool();
             App.display();
         }
     }

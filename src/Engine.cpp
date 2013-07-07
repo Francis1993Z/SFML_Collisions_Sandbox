@@ -34,6 +34,7 @@ Engine::Engine(sf::RenderWindow& init_renderwindow)
     text.setPosition(0.00f, 0.00f);
 
     rectangletool=NULL;
+    circletool=NULL;
 }
 
 void Engine::DrawTexts()
@@ -181,7 +182,6 @@ void Engine::addRectangle()
 
 void Engine::addCircle()
 {
-    //cout<<"addRectangle"<<endl;
 
     sf::Vector2f newcircle_position;
     newcircle_position.x = circletool->getPosition().x;
@@ -193,7 +193,7 @@ void Engine::addCircle()
     CirclesArray.push_back(sf::CircleShape(newcircle_radius));
     CirclesArray.back().setFillColor(*future_color);
     CirclesArray.back().setPosition(newcircle_position);
-    CirclesArray.back().setOrigin(newcircle_radius/2, newcircle_radius/2);
+    CirclesArray.back().setOrigin(newcircle_radius, newcircle_radius);
 
     delete circletool;
     delete future_color;
