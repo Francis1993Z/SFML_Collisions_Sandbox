@@ -156,6 +156,17 @@ void Engine::DrawCirclesArray()
  }
 }
 
+void Engine::DrawDrawablesArray()
+{
+ if(!DrawablesArray.empty())
+ {
+     for(unsigned int i=0;i<DrawablesArray.size();i++)
+     {
+         my_renderwindow->draw(DrawablesArray.at(i));
+     }
+ }
+}
+
 void Engine::addRectangle()
 {
     //cout<<"addRectangle"<<endl;
@@ -172,7 +183,8 @@ void Engine::addRectangle()
     RectanlgesArray.back().setFillColor(*future_color);
     RectanlgesArray.back().setPosition(newrectangle_position);
     RectanlgesArray.back().setOrigin(newrectangle_size.x/2, newrectangle_size.y/2);
-
+//DrawablesArray.push_back(RectanlgesArray.back());
+//my_renderwindow->draw(RectanlgesArray.back());
     delete rectangletool;
     delete future_color;
     rectangletool=NULL;
@@ -194,7 +206,8 @@ void Engine::addCircle()
     CirclesArray.back().setFillColor(*future_color);
     CirclesArray.back().setPosition(newcircle_position);
     CirclesArray.back().setOrigin(newcircle_radius, newcircle_radius);
-
+//DrawablesArray.push_back(CirclesArray.back());
+//my_renderwindow->draw(CirclesArray.back());
     delete circletool;
     delete future_color;
     circletool=NULL;

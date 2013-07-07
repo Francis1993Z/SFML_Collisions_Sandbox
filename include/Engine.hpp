@@ -33,9 +33,11 @@ class Engine
     void addCircle();
     void DrawRectanglesArray();
     void DrawCirclesArray();
+    void DrawDrawablesArray();
     sf::Text getText() const;
     bool ToolIsBusy() const;
 private:
+std::vector<sf::Drawable> DrawablesArray;
 std::vector<sf::RectangleShape> RectanlgesArray;
 std::vector<sf::CircleShape> CirclesArray;
 sf::RectangleShape *rectangletool;

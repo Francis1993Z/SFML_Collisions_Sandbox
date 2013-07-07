@@ -209,7 +209,7 @@ int main()
             engine.DrawTexts();
             engine.DrawRectanglesArray();
             engine.DrawRectangleTool();
-            engine.DrawCirclesArray();
+           engine.DrawCirclesArray();
             engine.DrawCircleTool();
             App.display();
         }
