@@ -26,6 +26,7 @@ class Engine
     void UpdateRectangleTool(doubleVector2f newdVector2f);
     void DrawRectangleTool();
     void addRectangle();
+    void DrawRectanglesArray();
     sf::Text getText() const;
     bool ToolIsBusy() const;
 private:

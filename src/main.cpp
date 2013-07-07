@@ -18,7 +18,7 @@ int main()
 {
 
     bool Run=true;
-    RenderWindow App(VideoMode(800, 600, 32), "SFML");
+    RenderWindow App(VideoMode(1920, 1080, 32), "SFML");
     Event Event;
 
     sf::Vector2i localMousePosition;
@@ -109,9 +109,14 @@ doubleVector2f *my_quadvector;
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                               sf::Vector2f converted_coord;//la position de la souris est en int
+
+
+
+                    sf::Vector2f converted_coord;//la position de la souris est en int
                 converted_coord.x=(float)localMousePosition.x;//donc on la convertie en float car Player::Shoot(sf::Vector2f, sf::RenderWindow &myRenderWindow)
                 converted_coord.y=(float)localMousePosition.y;//sf::Vector2f est en float
+
+
 cout<<"Mouse::Left"<<endl;
                 if(!engine.ToolIsBusy())//Si c'est un nouveau.
                 {
@@ -148,6 +153,7 @@ cout<<"Mouse::Left"<<endl;
 
             App.clear(Color(255,255,255));
             engine.DrawTexts();
+            engine.DrawRectanglesArray();
             engine.DrawRectangleTool();
 
             App.display();

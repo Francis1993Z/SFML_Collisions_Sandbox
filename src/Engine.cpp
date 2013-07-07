@@ -36,30 +36,30 @@ void Engine::UpdateRectangleTool(doubleVector2f newdVector2f)
     sf::Vector2f mysize;
     mysize.x=(halfwidth*2);
     mysize.y=(halfheight*2);
-        cout<<"UpdateRectangleTool"<<endl;
+        //cout<<"UpdateRectangleTool"<<endl;
     if(rectangletool!=NULL)
     {
-                cout<<"UpdateRectangleTool { rectangletool!=NULL }"<<endl;
+                //cout<<"UpdateRectangleTool { rectangletool!=NULL }"<<endl;
         delete rectangletool;
         rectangletool=NULL;
         rectangletool = new sf::RectangleShape(mysize);
         rectangletool->setOrigin(halfwidth, halfheight);
         rectangletool->setPosition(newdVector2f.v1);
 sf::Color toolcolor=*future_color;
-toolcolor.a=50;
+toolcolor.a=150;
         rectangletool->setFillColor(toolcolor);
     }
-    else
+    else//nouveau
     {
-                        cout<<"UpdateRectangleTool else"<<endl;
+                        //cout<<"UpdateRectangleTool else"<<endl;
         rectangletool = new sf::RectangleShape(mysize);
         rectangletool->setOrigin(halfwidth, halfheight);
         rectangletool->setPosition(newdVector2f.v1);
-        int R = rand() % 255 + 1;
-        int B = rand() % 255 + 1;
-        int G = rand() % 255 + 1;
+        int R = rand() % 255 + 50;
+        int B = rand() % 255 + 50;
+        int G = rand() % 255 + 50;
         future_color = new sf::Color(R,B,G);
-        rectangletool->setFillColor(sf::Color(R,G,B,50));
+        rectangletool->setFillColor(sf::Color(R,G,B));
     }
 
 }
@@ -68,14 +68,25 @@ void Engine::DrawRectangleTool()
 {
     if(rectangletool!=NULL)
     {
-        cout<<"DrawRectangleTool"<<endl;
+        //cout<<"DrawRectangleTool"<<endl;
         my_renderwindow->draw(*rectangletool);
     }
 }
 
+void Engine::DrawRectanglesArray()
+{
+ if(!RectanlgesArray.empty())
+ {
+     for(unsigned int i=0;i<RectanlgesArray.size();i++)
+     {
+         my_renderwindow->draw(RectanlgesArray.at(i));
+     }
+ }
+}
+
 void Engine::addRectangle()
 {
-    cout<<"addRectangle"<<endl;
+    //cout<<"addRectangle"<<endl;
 
     sf::Vector2f newrectangle_position;
     newrectangle_position.x = rectangletool->getPosition().x;
@@ -88,6 +99,7 @@ void Engine::addRectangle()
     RectanlgesArray.push_back(sf::RectangleShape(newrectangle_size));
     RectanlgesArray.back().setFillColor(*future_color);
     RectanlgesArray.back().setPosition(newrectangle_position);
+    RectanlgesArray.back().setOrigin(newrectangle_size.x/2, newrectangle_size.y/2);
 
     delete rectangletool;
     delete future_color;
