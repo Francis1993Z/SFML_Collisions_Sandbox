@@ -5,6 +5,16 @@
 using namespace std;
 using namespace sf;
 
+inline float Distance(float TheObj_X, float TheObj_Y, float MyObj_X, float MyObj_Y)
+{
+    float TCoteopposer=MyObj_Y-TheObj_Y;
+    float TCoteadjacent=MyObj_X-TheObj_X;
+    float Tracinecarre=pow(TCoteadjacent,2)+pow(TCoteopposer,2);
+    float Thypothenuse=sqrt(Tracinecarre);
+
+    return Thypothenuse;
+}
+
 Engine::Engine(sf::RenderWindow& init_renderwindow)
 {
     cout<<"init_renderwindow adresse : "<<&init_renderwindow<<endl;
