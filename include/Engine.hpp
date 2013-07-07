@@ -13,6 +13,8 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
 
+
+
 struct doubleVector2f
 {
     sf::Vector2f v1, v2;
@@ -24,15 +26,20 @@ class Engine
     Engine(sf::RenderWindow& init_renderwindow);
     void DrawTexts();
     void UpdateRectangleTool(doubleVector2f newdVector2f);
+    void UpdateCircleTool(doubleVector2f newdVector2f);
     void DrawRectangleTool();
+    void DrawCircleTool();
     void addRectangle();
+    void addCircle();
     void DrawRectanglesArray();
+    void DrawCirclesArray();
     sf::Text getText() const;
     bool ToolIsBusy() const;
 private:
 std::vector<sf::RectangleShape> RectanlgesArray;
 std::vector<sf::CircleShape> CirclesArray;
 sf::RectangleShape *rectangletool;
+sf::CircleShape *circletool;
 sf::Color *future_color;
 sf::Font font;
 sf::Text text;

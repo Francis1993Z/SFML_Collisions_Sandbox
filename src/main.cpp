@@ -7,9 +7,12 @@
 #include <SFML/Graphics.hpp>
 
 #include "Engine.hpp"
+#include "otherfunc.hpp"
 
 using namespace std;
 using namespace sf;
+
+
 
 enum outils {RIEN=0, ADD_RECTANGLE=1, ADD_CIRCLE=2};
 
@@ -18,7 +21,7 @@ int main()
 {
 
     bool Run=true;
-    RenderWindow App(VideoMode(1920, 1080, 32), "SFML");
+    RenderWindow App(VideoMode(1024, 768, 32), "SFML");
     Event Event;
 
     sf::Vector2i localMousePosition;
@@ -31,7 +34,8 @@ int main()
     unsigned int tools_iterator=0;
     unsigned int my_tool=tools_iterator;
 
-doubleVector2f *my_quadvector;
+doubleVector2f *my_quadvector=NULL;
+float *my_circletool_radius=NULL;
 
     while(Run)
     {
@@ -106,33 +110,61 @@ doubleVector2f *my_quadvector;
 
 
             }//fin poll.Event()
-
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            {
-
-
-
                     sf::Vector2f converted_coord;//la position de la souris est en int
                 converted_coord.x=(float)localMousePosition.x;//donc on la convertie en float car Player::Shoot(sf::Vector2f, sf::RenderWindow &myRenderWindow)
                 converted_coord.y=(float)localMousePosition.y;//sf::Vector2f est en float
 
-
-cout<<"Mouse::Left"<<endl;
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+switch (my_tool)
+                                        {
+                ///*********************************************************************************///
+case 1://rectangle
+//cout<<"Mouse::Left"<<endl;
                 if(!engine.ToolIsBusy())//Si c'est un nouveau.
                 {
                     cout<<"ToolIsBusy() == false"<<endl;
                 my_quadvector = new doubleVector2f;
                 my_quadvector->v1=converted_coord;
                 my_quadvector->v2=converted_coord;
+cout<<"v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
+cout<<"v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
                                 engine.UpdateRectangleTool(*my_quadvector);
                 }
                 else//Sinon c'est le même.
                 {
-                    cout<<"ToolIsBusy() == true"<<endl;
-                my_quadvector->v2=converted_coord;
+                    //cout<<"ToolIsBusy() == true"<<endl;
+                cout<<"converted_coord.x : "<<converted_coord.x<<" converted_coord.y : "<<converted_coord.y<<endl;
+                my_quadvector->v2=converted_coord;//bug
+                cout<<"v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
+cout<<"v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
                                 engine.UpdateRectangleTool(*my_quadvector);
                 }
-
+                break;//fin rectangle
+                ///*********************************************************************************///
+                case 2://circle
+                                if(!engine.ToolIsBusy())//Si c'est un nouveau.
+                {
+                                    cout<<"ToolIsBusy() == false"<<endl;
+                my_quadvector = new doubleVector2f;
+                my_quadvector->v1=converted_coord;
+                my_quadvector->v2=converted_coord;
+cout<<"v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
+cout<<"v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
+                                engine.UpdateRectangleTool(*my_quadvector);
+                }
+                else//Sinon c'est le même.
+                {
+                    //cout<<"ToolIsBusy() == true"<<endl;
+                cout<<"converted_coord.x : "<<converted_coord.x<<" converted_coord.y : "<<converted_coord.y<<endl;
+                my_quadvector->v2=converted_coord;//bug
+                cout<<"v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
+cout<<"v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
+                                engine.UpdateRectangleTool(*my_quadvector);
+                }
+                break;//fin circle
+                ///*********************************************************************************///
+                }//fin switch tool
             }
 
  if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
@@ -140,12 +172,12 @@ cout<<"Mouse::Left"<<endl;
 
                 if(!engine.ToolIsBusy())//Si c'est un nouveau.
                 {
-                    cout<<"ToolIsBusy() == false"<<endl;
+                    //cout<<"ToolIsBusy() == false"<<endl;
 
                 }
                 else//Sinon c'est le même.
                 {
-                    cout<<"ToolIsBusy() == true"<<endl;
+                    //cout<<"ToolIsBusy() == true"<<endl;
 
                 }
 
@@ -162,4 +194,5 @@ cout<<"Mouse::Left"<<endl;
 
     return 0;
 }
+
 
