@@ -23,7 +23,14 @@ string floattostring(float f)
     return os.str();
 }
 
-
+bool check_bools_F(const std::vector<bool> var)
+{
+            for(unsigned int i=0; i<var.size(); i++)
+    {
+  if(var.at(i)!=false) return false;
+    }
+    return true;
+}
 
 Engine::Engine(sf::RenderWindow& init_renderwindow)
 {
@@ -234,7 +241,6 @@ bool Engine::Collision(const std::vector<sf::Vector2f> Sommets, sf::Vector2f P)
 //std::cout<<""<<std::endl;
 
     int nbp=Sommets.size();
-    std::cout<<"nbp : "<<nbp<<std::endl;
     for(int i=0; i<nbp; i++)
     {
 
@@ -265,7 +271,10 @@ void Engine::Select(sf::Vector2i c_MousePosition)
     converted_coord.x=(float)c_MousePosition.x;//donc on la convertie en float car Player::Shoot(sf::Vector2f, sf::RenderWindow &myRenderWindow)
     converted_coord.y=(float)c_MousePosition.y;//sf::Vector2f est en float
     //std::cout<<"converted_coord.x : "<<converted_coord.x<<" converted_coord.y : "<<converted_coord.y<<std::endl;
-    bool collision=false;
+
+
+        std::vector<bool> collision;
+
     for(unsigned int i=0; i<RectanlgesArray.size(); i++)
     {
 
@@ -279,22 +288,27 @@ RectanlgesArray.at(i).UpdateRectPoint();
         c.push_back(tmp_rect.A);
 
 
-
         if(Collision(c, converted_coord) == true)
         {
             //cout<<"Oui"<<endl;
             selected_obj=&RectanlgesArray.at(i);
-collision=true;
+
             //cout<<"&RectanlgesArray.at(i) : "<<&RectanlgesArray.at(i)<<endl;
             //cout<<"selected_obj : "<<selected_obj<<endl;
+
+                         bool c=true;
+
+collision.push_back(c);
         }
         else
     {
-     selected_obj=NULL;
+             bool c=false;
+collision.push_back(c);
     }
 
-    }
-    //if(selected_obj==selected_obj) selected_obj=NULL;
+    }//fin for
+    if(check_bools_F(collision) == true) selected_obj=NULL;
+
 
 }
 
