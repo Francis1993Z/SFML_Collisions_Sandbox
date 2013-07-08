@@ -44,4 +44,10 @@ inline float GetAngle_v2f(sf::Vector2f vec1, sf::Vector2f vec2)
 
     return angle;
 }
-
+/*
+string float2string(float f)
+{
+  ostringstream os;
+  os << f;
+  return os.str()
+}*/

@@ -28,14 +28,13 @@ int main()
 
     App.setFramerateLimit(60);
 
-    cout<<"App adresse : "<<&App<<endl;
     Engine engine(App);
 
     int tools_iterator=0;
     unsigned int my_tool=tools_iterator;
                   cout<<"my_tool : "<<my_tool<<endl;
     doubleVector2f *my_quadvector=NULL;
-    float *my_circletool_radius=NULL;
+
 
     while(Run)
     {
@@ -64,29 +63,13 @@ int main()
 
                 else if (Event.type == sf::Event::MouseButtonPressed)
                 {
-                    if (Event.mouseButton.button == sf::Mouse::Right)
+                    /*
+                    if (Event.mouseButton.button == sf::Mouse::Left)
                     {
                         //std::cout << "the right button was pressed" << std::endl;
+                        //if(my_tool==0) engine.Select(localMousePosition);
                     }
-
-
-                    /* switch (my_tool)
-                                    {
-                                    case RIEN:
-                                        cout<<"Nothing to do."<<endl;
-                                        break;
-                                    case ADD_RECTANGLE:
-                                        printf("Salut gamin !");
-                                        break;
-                                    case ADD_CIRCLE:
-                                        printf("Salut jeune !");
-                                        break;
-                                    default:
-                                        printf("Je n'ai aucune phrase de prete pour ton age  ");
-                                        break;
-                                    }*/
-
-
+*/
                 }//fin MouseButtonPressed
 
                 else if (Event.type == sf::Event::MouseButtonReleased)
@@ -122,8 +105,6 @@ int main()
                          else my_tool--;
                     }
                     else cout<<"Go home MouseWheel... You're drunk."<<endl;
-
-                    cout<<"My tool : "<<my_tool<<endl;
                 }
 
 
@@ -136,52 +117,52 @@ int main()
             converted_coord.x=(float)localMousePosition.x;//donc on la convertie en float car Player::Shoot(sf::Vector2f, sf::RenderWindow &myRenderWindow)
             converted_coord.y=(float)localMousePosition.y;//sf::Vector2f est en float
 
+           if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
+           {
+            engine.rotateSelectedObj(10);
+           }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
+           {
+            engine.rotateSelectedObj(-10);
+           }
+
+
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 switch (my_tool)
                 {
+                    case 0://Selection
+                    engine.Select(localMousePosition);
+                    break;
+
                     ///*********************************************************************************///
                 case 1://rectangle
-//cout<<"Mouse::Left"<<endl;
                     if(!engine.ToolIsBusy())//Si c'est un nouveau.
                     {
-                        cout<<"ToolIsBusy() == false"<<endl;
-                        my_quadvector = new doubleVector2f;
+  my_quadvector = new doubleVector2f;
                         my_quadvector->v1=converted_coord;
                         my_quadvector->v2=converted_coord;
-                        cout<<"Rectangle v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
-                        cout<<"Rectangle v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
+
                         engine.UpdateRectangleTool(*my_quadvector);
                     }
                     else//Sinon c'est le même.
                     {
-                        //cout<<"ToolIsBusy() == true"<<endl;
-                        cout<<"Rectangle converted_coord.x : "<<converted_coord.x<<" converted_coord.y : "<<converted_coord.y<<endl;
-                        my_quadvector->v2=converted_coord;//bug
-                        cout<<"Rectangle v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
-                        cout<<"Rectangle v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
-                        engine.UpdateRectangleTool(*my_quadvector);
+  my_quadvector->v2=converted_coord;
+ engine.UpdateRectangleTool(*my_quadvector);
                     }
                     break;//fin rectangle
                     ///*********************************************************************************///
                 case 2://circle
                     if(!engine.ToolIsBusy())//Si c'est un nouveau.
                     {
-                        cout<<"ToolIsBusy() == false"<<endl;
                         my_quadvector = new doubleVector2f;
                         my_quadvector->v1=converted_coord;
                         my_quadvector->v2=converted_coord;
-                        cout<<"Circle v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
-                        cout<<"Circle v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
                         engine.UpdateCircleTool(*my_quadvector);
                     }
                     else//Sinon c'est le même.
                     {
-                        //cout<<"ToolIsBusy() == true"<<endl;
-                        cout<<"Circle converted_coord.x : "<<converted_coord.x<<" converted_coord.y : "<<converted_coord.y<<endl;
                         my_quadvector->v2=converted_coord;//bug
-                        cout<<"Circle v1.x : "<<my_quadvector->v1.x<<" v1.y : "<<my_quadvector->v1.y<<endl;
-                        cout<<"Circle v2.x : "<<my_quadvector->v2.x<<" v2.y : "<<my_quadvector->v2.y<<endl;
                         engine.UpdateCircleTool(*my_quadvector);
                     }
                     break;//fin circle
@@ -204,13 +185,15 @@ int main()
                 }
 
             }
+            engine.UpdateUI(localMousePosition, my_tool);
 
             App.clear(Color(255,255,255));
-            engine.DrawTexts();
+
             engine.DrawRectanglesArray();
             engine.DrawRectangleTool();
            engine.DrawCirclesArray();
             engine.DrawCircleTool();
+            engine.DrawTexts();
             App.display();
         }
     }

@@ -13,7 +13,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
 
-
+#include "RectangleObject.hpp"
 
 struct doubleVector2f
 {
@@ -34,11 +34,15 @@ class Engine
     void DrawRectanglesArray();
     void DrawCirclesArray();
     void DrawDrawablesArray();
+    bool Collision(const std::vector<sf::Vector2f> Sommets, sf::Vector2f P);
+    void Select(sf::Vector2i c_MousePosition);
+    void UpdateUI(sf::Vector2i c_MousePosition, unsigned int c_tool);
+    void rotateSelectedObj(float angle);
     sf::Text getText() const;
     bool ToolIsBusy() const;
 private:
 std::vector<sf::Drawable> DrawablesArray;
-std::vector<sf::RectangleShape> RectanlgesArray;
+std::vector<RectangleObject> RectanlgesArray;
 std::vector<sf::CircleShape> CirclesArray;
 sf::RectangleShape *rectangletool;
 sf::CircleShape *circletool;
@@ -46,6 +50,7 @@ sf::Color *future_color;
 sf::Font font;
 sf::Text text;
 sf::RenderWindow *my_renderwindow;
+RectangleObject *selected_obj;
 };
 
 #endif // ENGINE_HPP_INCLUDED
